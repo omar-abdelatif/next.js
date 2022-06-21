@@ -208,7 +208,7 @@ impl State {
         false
     }
 
-    fn import_local_name(&self, name: &str, cache_identifier: Option<&Ident>) -> Option<Id> {
+    pub(crate) fn import_local_name(&self, name: &str, cache_identifier: Option<&Ident>) -> Option<Id> {
         if name == "default" {
             if let Some(cached) = self.imported_local_name.clone() {
                 return Some(cached);
@@ -247,6 +247,10 @@ impl State {
         }
 
         name
+    }
+
+    pub(crate) fn set_import_name(&mut self, id: Id) {
+        self.imported_local_name = Some(id);
     }
 
     fn is_helper(&self, e: &Expr) -> bool {
